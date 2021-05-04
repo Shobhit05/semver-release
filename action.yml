@@ -1,4 +1,4 @@
-name: semver-release
+name: semver-release-branch
 description: Uses Github branch to release semver version of the code
 author: shobhitDream11
 branding:
