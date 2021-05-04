@@ -27,15 +27,15 @@ jobs:
           env:
             GITHUB_TOKEN: ${{ inputs.repo-token }}
           with:
-            tag_name: v${{ inputs.github-run-number }}
-            release_name: Realease V${{ inputs.github-run-number }}
+            tag_name: v${{ github.event.inputs.github-run-number }}       
+            release_name: Realease V${{ github.event.inputs.github-run-number }}
         
         - name:  Upload Asset
           uses: actions/upload-release-asset@v1
           env:
-            GITHUB_TOKEN: ${{ inputs.repo-token }}
+            GITHUB_TOKEN: ${{ github.event.inputs.repo-token }}
           with:
             upload_url: ${{ steps.create-new-release.outputs.upload_url }}
             asset_path: ./releases.zip
-            asset_name: site-v${{ inputs.github-run-number }}.zip
+            asset_name: site-v${{ github.event.inputs.github-run-number }}.zip
             asset_content_type: application/zip
