@@ -4,28 +4,11 @@ author: shobhitDream11
 branding:
     icon: 'paperclip'
     color: 'white'
-jobs:
-    audit:
-        runs-on: ubuntu-latest
-        steps:
+runs:
+    using: "composite"
+    steps:
         - uses: actions/checkout@v1
         - name: Zip folder
           run: zip -r releases.zip .
         - name: Release to Github
           run: echo "Releasing"
-        
-        - name: Create Github Release
-          id: create-new-release
-          uses: actions/create-release@v1
-          
-          with:
-            tag_name: v11
-            release_name: Realease V11
-        
-        - name:  Upload Asset
-          uses: actions/upload-release-asset@v1
-          with:
-            upload_url: ${{ steps.create-new-release.outputs.upload_url }}
-            asset_path: ./releases.zip
-            asset_name: site-v11.zip
-            asset_content_type: application/zip
