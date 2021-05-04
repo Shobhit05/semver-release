@@ -1,9 +1,34 @@
-name: take-action
-description: blah-blah
+name: semver-release
+description: Uses Github branch to release semver version of the code
 author: shobhitDream11
 branding:
     icon: 'paperclip'
     color: 'white'
-runs:
-    using: 'docker'
-    image: 'Dockerfile'
+jobs:
+    audit:
+        runs-on: ubuntu-latest
+        steps:
+        - uses: actions/checkout@v1
+        - name: Zip folder
+          run: zip -r releases.zip .
+        - name: Release to Github
+          run: echo "Releasing"
+        
+        - name: Create Github Release
+          id: create-new-release
+          uses: actions/create-release@v1
+          env:
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          with:
+            tag_name: v${{ github.run_number }}
+            release_name: Realease V${{ github.run_number }}
+        
+        - name:  Upload Asset
+          uses: actions/upload-release-asset@v1
+          env:
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          with:
+            upload_url: ${{ steps.create-new-release.outputs.upload_url }}
+            asset_path: ./releases.zip
+            asset_name: site-v${{ github.run_number }}.zip
+            asset_content_type: application/zip
