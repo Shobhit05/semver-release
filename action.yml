@@ -8,9 +8,11 @@ inputs:
     repo-token:
         description: 'Branches to update'
         required: false
+        default: 'shobhit'
     github-run-number:
         description: 'Github run number'
         required: false
+        default: '11'
 jobs:
     audit:
         runs-on: ubuntu-latest
