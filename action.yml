@@ -25,7 +25,7 @@ jobs:
           id: create-new-release
           uses: actions/create-release@v1
           env:
-            GITHUB_TOKEN: ${{ inputs.repo-token }}
+            GITHUB_TOKEN: ${{ github.event.inputs.repo-token }}
           with:
             tag_name: v${{ github.event.inputs.github-run-number }}       
             release_name: Realease V${{ github.event.inputs.github-run-number }}
