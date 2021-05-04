@@ -4,15 +4,6 @@ author: shobhitDream11
 branding:
     icon: 'paperclip'
     color: 'white'
-inputs:
-    repo-token:
-        description: 'Branches to update'
-        required: false
-        default: 'shobhit'
-    github-run-number:
-        description: 'Github run number'
-        required: false
-        default: '11'
 jobs:
     audit:
         runs-on: ubuntu-latest
@@ -26,18 +17,15 @@ jobs:
         - name: Create Github Release
           id: create-new-release
           uses: actions/create-release@v1
-          env:
-            GITHUB_TOKEN: ${{ inputs.repo-token }}
+          
           with:
-            tag_name: v${{ inputs.github-run-number }}       
-            release_name: Realease V${{ inputs.github-run-number }}
+            tag_name: v11
+            release_name: Realease V11
         
         - name:  Upload Asset
           uses: actions/upload-release-asset@v1
-          env:
-            GITHUB_TOKEN: ${{ inputs.repo-token }}
           with:
             upload_url: ${{ steps.create-new-release.outputs.upload_url }}
             asset_path: ./releases.zip
-            asset_name: site-v${{ inputs.github-run-number }}.zip
+            asset_name: site-v11.zip
             asset_content_type: application/zip
